@@ -2,6 +2,9 @@
 #if defined(OS_Windows)
 	#include <Windows.h>
 #endif
+#if defined(STD_LIBRARY)
+	#include <mutex>
+#endif
 #if defined(OS_Posix)
 	#include <pthread.h>
 #endif
@@ -27,6 +30,28 @@ namespace Sys {
 		}
 		void Unlock() {
 			LeaveCriticalSection(&sgMemCrit);
+		}
+	};
+#endif
+#if defined(STD_LIBRARY)
+	class CriticalSection::Impl {
+	private:
+		std::mutex mMutex;
+	public:
+		Impl() { }
+		~Impl() { }
+	public:
+		void Create(void) {
+
+		}
+		void Destroy(void) { 
+		
+		}
+		void Lock() {
+			mMutex.lock();
+		}
+		void Unlock() {
+			mMutex.unlock();
 		}
 	};
 #endif
