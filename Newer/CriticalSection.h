@@ -2,6 +2,8 @@
 #define _CRITICALSECTION_HEADER
 #pragma once
 
+#include <memory> /* std::unique_ptr */
+
 namespace Sys {
 
 	class CriticalSection {
